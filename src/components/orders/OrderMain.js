@@ -3,9 +3,14 @@ import Orders from './Orders'
 import Message from '../LoadingError/Error'
 import Loading from '../LoadingError/Loading'
 import { useSelector, useDispatch } from 'react-redux'
-
+import { listOrders } from '../../redux/actions/OrderActions'
 const OrderMain = () => {
    const { loading, error, orders } = useSelector((state) => state.orderList)
+   const dispatch = useDispatch()
+
+   React.useEffect(() => {
+      dispatch(listOrders())
+   }, [dispatch])
    return (
       <section className='content-main'>
          <div className='content-header'>

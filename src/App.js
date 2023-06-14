@@ -12,6 +12,7 @@ import AddProduct from './screens/AddProduct'
 import Login from './screens/LoginScreen'
 import UsersScreen from './screens/UsersScreen'
 import ProductEditScreen from './screens/ProductEditScreen'
+import CategoryEditScreen from './screens/CategoryEditScreen'
 import NotFound from './screens/NotFound'
 import PrivateRoute from './PrivateRouter'
 import { useSelector, useDispatch } from 'react-redux'
@@ -36,14 +37,18 @@ function App() {
             <Switch>
                <PrivateRoute path='/' component={HomeScreen} exact />
                <PrivateRoute path='/products' component={ProductScreen} />
-               <PrivateRoute path='/category' component={CategoriesScreen} />
-               <PrivateRoute path='/orders' component={OrderScreen} />
-               <PrivateRoute path='/order/:id' component={OrderDetailScreen} />
                <PrivateRoute path='/addproduct' component={AddProduct} />
                <PrivateRoute path='/product/:id/edit' component={ProductEditScreen} />
-               <PrivateRoute path='/users' component={UsersScreen} />
 
+               <PrivateRoute path='/category/:id/edit' component={CategoryEditScreen} />
+               <PrivateRoute path='/category' component={CategoriesScreen} />
+
+               <PrivateRoute path='/orders' component={OrderScreen} />
+               <PrivateRoute path='/order/:id' component={OrderDetailScreen} />
+
+               <PrivateRoute path='/users' component={UsersScreen} />
                <Route path='/login' component={Login} />
+
                <Route path='*' component={NotFound} />
             </Switch>
          </Router>

@@ -5,6 +5,7 @@ import { createProduct } from '../../redux/actions/ProductActions'
 import Message from '../LoadingError/Error'
 import Loading from '../LoadingError/Loading'
 import Toast from '../LoadingError/Toast'
+import { listCategories } from '../../redux/actions/CategoryActions'
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
@@ -23,9 +24,14 @@ const AddProductMain = () => {
    const [image, setImage] = useState('')
    const [countInStock, setCountInStock] = useState(0)
    const [description, setDescription] = useState('')
+   const [category, setCategory] = useState('')
 
    const { loading, error, success, product } = useSelector((state) => state.productCreate)
+   const { categories } = useSelector((state) => state.categoryList)
 
+   useEffect(() => {
+      dispatch(listCategories())
+   }, [dispatch])
    useEffect(() => {
       if (product) {
          toast.success('Product Added', ToastObjects)
@@ -46,6 +52,7 @@ const AddProductMain = () => {
             image,
             countInStock,
             description,
+            category,
          })
       )
    }
@@ -99,6 +106,27 @@ const AddProductMain = () => {
                                  value={price}
                                  required
                               />
+                           </div>
+                           <div className='mb-4'>
+                              {/* select category */}
+                              <label htmlFor='product_price' className='form-label'>
+                                 Category
+                              </label>
+                              <select
+                                 className='form-select'
+                                 aria-label='Default select example'
+                                 onChange={(e) => setCategory(e.target.value)}
+                                 value={category}
+                                 required
+                              >
+                                 <option value=''>Select Category</option>
+                                 {categories &&
+                                    categories.map((category) => (
+                                       <option key={category._id} value={category._id}>
+                                          {category?.title}
+                                       </option>
+                                    ))}
+                              </select>
                            </div>
                            <div className='mb-4'>
                               <label htmlFor='product_price' className='form-label'>

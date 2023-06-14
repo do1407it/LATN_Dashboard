@@ -7,7 +7,9 @@ const TopTotal = ({ orders, products }) => {
 
    if (orders) {
       orders.forEach((order) => {
-         totalSales += order?.totalPrice
+         // format totalSales
+         totalSales += order.totalPrice
+
          totalOrders += 1
       })
 
@@ -15,6 +17,7 @@ const TopTotal = ({ orders, products }) => {
          totalProducts += 1
       })
    }
+
 
    return (
       <div className='row'>
@@ -25,7 +28,8 @@ const TopTotal = ({ orders, products }) => {
                      <i className='text-primary fas fa-usd-circle'></i>
                   </span>
                   <div className='text'>
-                     <h6 className='mb-1'>Total Sales</h6> <span>${totalSales ?? 0}</span>
+                     <h6 className='mb-1'>Total Sales</h6>{' '}
+                     <span>${totalSales.toFixed(2) ?? 0}</span>
                   </div>
                </article>
             </div>
