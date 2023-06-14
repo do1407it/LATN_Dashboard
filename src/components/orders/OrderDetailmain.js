@@ -3,7 +3,7 @@ import OrderDetailProducts from './OrderDetailProducts'
 import OrderDetailInfo from './OrderDetailInfo'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { getOrderDetails } from '../../redux/actions/OrderActions'
+import { getOrderDetails, deliverOrder } from '../../redux/actions/OrderActions'
 import Loading from '../LoadingError/Loading'
 import Message from '../LoadingError/Error'
 import moment from 'moment'
@@ -14,6 +14,10 @@ const OrderDetailmain = ({ orderId }) => {
    useEffect(() => {
       dispatch(getOrderDetails(orderId))
    }, [dispatch, orderId])
+
+   const handleDelivered = () => {
+      dispatch(deliverOrder(orderId))
+   }
    return (
       <section className='content-main'>
          <div className='content-header'>
@@ -65,11 +69,13 @@ const OrderDetailmain = ({ orderId }) => {
                            </div>
                         </div>
                         {/* Payment Info */}
-                        <div className='col-lg-3'>
-                           <div className='box shadow-sm bg-light'>
-                              <button className='btn btn-dark col-12'>MARK AS DELIVERED</button>
+                        {!order?.isDelivered && (
+                           <div className='col-lg-3'>
+                              <button onClick={handleDelivered} className='box shadow-sm bg-light'>
+                                 <button className='btn btn-dark col-12'>MARK AS DELIVERED</button>
+                              </button>
                            </div>
-                        </div>
+                        )}
                      </div>
                   </>
                )}

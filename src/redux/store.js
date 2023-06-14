@@ -3,28 +3,33 @@ import thunk from 'redux-thunk'
 import { composeWithDevTools } from 'redux-devtools-extension'
 
 import {
-   // getProductDetailsReducer,
    getProductListReducer,
    productDeleteReducer,
    productCreateReducer,
    productEditReducer,
    productUpdateReducer,
-   // productReviewReducer,
 } from './reducers/Product'
-import { orderListReducer, orderDetailsReducer } from './reducers/Orders'
-// import { cartReducer } from './reducers/Cart'
+
+import { orderListReducer, orderDetailsReducer, orderDelivedReducer } from './reducers/Orders'
 import { userLoginReducer, getUsersReducer } from './reducers/User'
+import { categoryListReducer, categoryDelete } from './reducers/Category'
 
 const reducer = combineReducers({
    userLogin: userLoginReducer,
    userList: getUsersReducer,
+
    productList: getProductListReducer,
    productDelete: productDeleteReducer,
    productCreate: productCreateReducer,
    productEdit: productEditReducer,
    productUpdate: productUpdateReducer,
+
+   categoryList: categoryListReducer,
+   categoryDelete: categoryDelete,
+
    orderList: orderListReducer,
    orderDetail: orderDetailsReducer,
+   orderDeliver: orderDelivedReducer,
 })
 
 // Local Storage
