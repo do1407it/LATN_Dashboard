@@ -185,7 +185,7 @@ export const editProduct = (id) => async (dispatch) => {
 }
 
 export const updateProduct = (product) => async (dispatch, getState) => {
-   console.log(product)
+
    try {
       dispatch({ type: PRODUCT_UPDATE_REQUEST })
 

@@ -3,6 +3,7 @@ import CreateCategory from './CreateCategory'
 import CategoriesTable from './CategoriesTable'
 
 const MainCategories = () => {
+
    return (
       <section className='content-main'>
          <div className='content-header'>

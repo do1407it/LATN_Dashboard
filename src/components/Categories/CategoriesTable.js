@@ -10,13 +10,16 @@ const CategoriesTable = () => {
 
    const { loading, error, categories } = useSelector((state) => state.categoryList)
    const { success } = useSelector((state) => state.categoryDelete)
-   console.log(success)
+   const { success: successCreate } = useSelector((state) => state.categoryCreate)
+
    useEffect(() => {
       if (success) {
          dispatch({ type: 'CATEGORY_DELETE_RESET' })
+      } else if (successCreate) {
+         dispatch({ type: 'CATEGORY_CREATE_RESET' })
       }
       dispatch(listCategories())
-   }, [dispatch, success])
+   }, [dispatch, success, successCreate])
 
    return (
       <>
@@ -24,11 +27,11 @@ const CategoriesTable = () => {
             <table className='table'>
                <thead>
                   <tr>
-                     <th>
+                     {/* <th>
                         <div className='form-check'>
                            <input className='form-check-input' type='checkbox' value='' />
                         </div>
-                     </th>
+                     </th> */}
                      <th>ID</th>
                      <th>Name</th>
                      <th>Description</th>
@@ -41,15 +44,15 @@ const CategoriesTable = () => {
                   {error && <Message variant='alert-danger'>{error}</Message>}
                   {categories &&
                      categories.map((category) => (
-                        <tr key={category._id}>
-                           <td>
+                        <tr key={category?._id}>
+                           {/* <td>
                               <div className='form-check'>
                                  <input className='form-check-input' type='checkbox' value='' />
                               </div>
-                           </td>
-                           <td>{category._id}</td>
+                           </td> */}
+                           <td>{category?._id}</td>
                            <td>
-                              <b>{category.title}</b>
+                              <b>{category?.title}</b>
                            </td>
                            <td>
                               {category?.description.length > 100
@@ -86,4 +89,4 @@ const CategoriesTable = () => {
    )
 }
 
-export default CategoriesTable
+export default React.memo(CategoriesTable)

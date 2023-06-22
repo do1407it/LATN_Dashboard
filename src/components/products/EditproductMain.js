@@ -7,6 +7,7 @@ import Loading from '../LoadingError/Loading'
 import { toast } from 'react-toastify'
 
 import { editProduct, updateProduct } from '../../redux/actions/ProductActions'
+import { listCategories } from '../../redux/actions/CategoryActions'
 
 const ToastObjects = {
    pauseOnFocusLoss: false,
@@ -21,19 +22,27 @@ const EditProductMain = ({ productId }) => {
    const [name, setName] = useState('')
    const [price, setPrice] = useState(0)
    const [image, setImage] = useState('')
+   const [category, setCategory] = useState('')
    const [countInStock, setCountInStock] = useState(0)
    const [description, setDescription] = useState('')
 
    const { loading, error, product } = useSelector((state) => state.productEdit)
+   const { categories } = useSelector((state) => state.categoryList)
+
+   useEffect(() => {
+      dispatch(listCategories())
+   }, [dispatch])
    const {
       loading: loadingUpdate,
       error: errorUpdate,
       success: successUpdate,
    } = useSelector((state) => state.productUpdate)
+
    useEffect(() => {
       if (successUpdate) {
          toast.success('Product updated successfully', ToastObjects)
          dispatch({ type: 'PRODUCT_UPDATE_RESET' })
+         dispatch(editProduct(productId))
       } else {
          if (!product || product._id !== productId) {
             dispatch(editProduct(productId))
@@ -43,12 +52,27 @@ const EditProductMain = ({ productId }) => {
             setImage(product.image)
             setCountInStock(product.countInStock)
             setDescription(product.description)
+            setCategory(product?.category?._id)
          }
       }
    }, [dispatch, product, productId, successUpdate])
+   console.log(category)
    const submitHandler = (e) => {
       e.preventDefault()
-      dispatch(updateProduct({ _id: productId, name, price, image, countInStock, description }))
+      if (price <= 0) toast.error('Price must be greater than 0', ToastObjects)
+      else if (countInStock <= 0) toast.error('Count In Stock must be greater than 0', ToastObjects)
+      else
+         dispatch(
+            updateProduct({
+               _id: productId,
+               name,
+               price,
+               image,
+               countInStock,
+               category,
+               description,
+            })
+         )
    }
 
    return (
@@ -118,6 +142,22 @@ const EditProductMain = ({ productId }) => {
                               />
                            </div>
                            <div className='mb-4'>
+                              <select
+                                 className='form-select'
+                                 aria-label='Default select example'
+                                 value={category}
+                                 onChange={(e) => setCategory(e.target.value)}
+                                 required
+                              >
+                                 {categories &&
+                                    categories.map((category) => (
+                                       <option key={category._id} value={category?._id}>
+                                          {category?.title}
+                                       </option>
+                                    ))}
+                              </select>
+                           </div>
+                           <div className='mb-4'>
                               <label className='form-label'>Description</label>
                               <textarea
                                  placeholder='Type here'
@@ -127,6 +167,10 @@ const EditProductMain = ({ productId }) => {
                                  value={description}
                                  onChange={(e) => setDescription(e.target.value)}
                               ></textarea>
+                           </div>
+                           {/* img */}
+                           <div className='mb-4'>
+                              <img src={image} alt={name} width={100} height={100} />
                            </div>
                            <div className='mb-4'>
                               <label className='form-label'>Images</label>

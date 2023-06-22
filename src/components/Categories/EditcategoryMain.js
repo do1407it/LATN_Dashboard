@@ -6,7 +6,7 @@ import Message from '../LoadingError/Error'
 import Loading from '../LoadingError/Loading'
 import { toast } from 'react-toastify'
 
-import { editProduct, updateProduct } from '../../redux/actions/ProductActions'
+import { editCategory, updateCategory } from '../../redux/actions/CategoryActions'
 
 const ToastObjects = {
    pauseOnFocusLoss: false,
@@ -15,18 +15,53 @@ const ToastObjects = {
    autoClose: 2000,
 }
 
-const EditCateogryMain = ({ productId }) => {
+const EditCateogryMain = ({ categoryId }) => {
+   const dispatch = useDispatch()
+   const [name, setName] = useState('')
+   const [description, setDescription] = useState('')
+
+   const {
+      loading: loadingEdit,
+      error: errorEdit,
+      category,
+   } = useSelector((state) => state.categoryEdit)
+
+   const {
+      loading: loadingUpdate,
+      error: errorUpdate,
+      success: successUpdate,
+   } = useSelector((state) => state.categoryUpdate)
+
+   useEffect(() => {
+      if (successUpdate) {
+         toast.success('Product updated successfully', ToastObjects)
+         dispatch({ type: 'CATEGORY_UPDATE_RESET' })
+         dispatch(editCategory(categoryId))
+      } else {
+         if (!category || category._id !== categoryId) {
+            dispatch(editCategory(categoryId))
+         } else {
+            setName(category.title)
+            setDescription(category.description)
+         }
+      }
+   }, [dispatch, categoryId, category, successUpdate])
+
+   const submitHandler = (e) => {
+      e.preventDefault()
+      dispatch(updateCategory({ _id: categoryId, title: name, description }))
+   }
    return (
       <>
          <Toast />
 
          <section className='content-main' style={{ maxWidth: '1200px' }}>
-            <form>
+            <form onSubmit={submitHandler}>
                <div className='content-header'>
-                  <Link to='/products' className='btn btn-danger text-white'>
-                     Go to products
+                  <Link to='/category' className='btn btn-danger text-white'>
+                     Go to categories
                   </Link>
-                  <h2 className='content-title'>Update Product</h2>
+                  <h2 className='content-title'>Update Category</h2>
                   <div>
                      <button type='submit' className='btn btn-primary'>
                         Publish now
@@ -42,46 +77,19 @@ const EditCateogryMain = ({ productId }) => {
                            {/* {errorUpdate && <Message variant='alert-danger'>{errorUpdate}</Message>} */}
                            <div className='mb-4'>
                               <label htmlFor='product_title' className='form-label'>
-                                 Product title
+                                 Category name
                               </label>
                               <input
                                  type='text'
                                  placeholder='Type here'
                                  className='form-control'
                                  id='product_title'
-                                 // value={name}
-                                 // onChange={(e) => setName(e.target.value)}
+                                 value={name}
+                                 onChange={(e) => setName(e.target.value)}
                                  required
                               />
                            </div>
-                           <div className='mb-4'>
-                              <label htmlFor='product_price' className='form-label'>
-                                 Price
-                              </label>
-                              <input
-                                 type='number'
-                                 placeholder='Type here'
-                                 className='form-control'
-                                 id='product_price'
-                                 // value={price}
-                                 // onChange={(e) => setPrice(e.target.value)}
-                                 required
-                              />
-                           </div>
-                           <div className='mb-4'>
-                              <label htmlFor='product_price' className='form-label'>
-                                 Count In Stock
-                              </label>
-                              <input
-                                 type='number'
-                                 placeholder='Type here'
-                                 className='form-control'
-                                 id='product_price'
-                                 // value={countInStock}
-                                 // onChange={(e) => setCountInStock(e.target.value)}
-                                 required
-                              />
-                           </div>
+
                            <div className='mb-4'>
                               <label className='form-label'>Description</label>
                               <textarea
@@ -89,18 +97,9 @@ const EditCateogryMain = ({ productId }) => {
                                  className='form-control'
                                  rows='7'
                                  required
-                                 // value={description}
-                                 // onChange={(e) => setDescription(e.target.value)}
+                                 value={description}
+                                 onChange={(e) => setDescription(e.target.value)}
                               ></textarea>
-                           </div>
-                           <div className='mb-4'>
-                              <label className='form-label'>Images</label>
-                              <input
-                                 className='form-control'
-                                 type='text'
-                                 // value={image}
-                                 // onChange={(e) => setImage(e.target.value)}
-                              />
                            </div>
                         </div>
                      </div>
