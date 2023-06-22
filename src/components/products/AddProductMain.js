@@ -8,6 +8,7 @@ import Toast from '../LoadingError/Toast'
 import { listCategories } from '../../redux/actions/CategoryActions'
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import convertBase64 from '../../utils/convertBase64'
 
 const AddProductMain = () => {
    // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -21,7 +22,7 @@ const AddProductMain = () => {
    const dispatch = useDispatch()
    const [name, setName] = useState('')
    const [price, setPrice] = useState(0)
-   const [image, setImage] = useState('')
+   const [url, setUrl] = useState('')
    const [countInStock, setCountInStock] = useState(0)
    const [description, setDescription] = useState('')
    const [category, setCategory] = useState('')
@@ -32,6 +33,7 @@ const AddProductMain = () => {
    useEffect(() => {
       dispatch(listCategories())
    }, [dispatch])
+
    useEffect(() => {
       if (product) {
          toast.success('Product Added', ToastObjects)
@@ -40,27 +42,38 @@ const AddProductMain = () => {
          setPrice(0)
          setCountInStock(0)
          setDescription('')
-         setImage('')
+         setCategory('')
       }
    }, [dispatch, product, success, ToastObjects])
-   const handleSubmit = (e) => {
+
+   const submitHandler = (e) => {
       e.preventDefault()
-      dispatch(
-         createProduct({
-            name,
-            price,
-            image,
-            countInStock,
-            description,
-            category,
-         })
-      )
+      if (price <= 0) toast.error('Price must be greater than 0', ToastObjects)
+      else if (countInStock <= 0) toast.error('Count In Stock must be greater than 0', ToastObjects)
+      else
+         dispatch(
+            createProduct({
+               name,
+               price,
+               image: url,
+               countInStock,
+               description,
+               category,
+            })
+         )
    }
+
+   const handleImageUpload = async (e) => {
+      const file = e.target.files[0]
+      const base64 = await convertBase64(file)
+      setUrl(base64)
+   }
+
    return (
       <>
          <Toast />
          <section className='content-main' style={{ maxWidth: '1200px' }}>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={submitHandler}>
                <div className='content-header'>
                   <Link to='/products' className='btn btn-danger text-white'>
                      Go to products
@@ -155,14 +168,19 @@ const AddProductMain = () => {
                            </div>
                            <div className='mb-4'>
                               <label className='form-label'>Images</label>
-                              <input
+                              {/* <input
                                  className='form-control'
                                  type='text'
                                  placeholder='Inter Image URL'
-                                 onChange={(e) => setImage(e.target.value)}
-                                 value={image}
+                                 onChange={(e) => setImageLink(e.target.value)}
+                                 value={imageLink}
+                              /> */}
+                              <input
+                                 className='form-control mt-3'
+                                 type='file'
+                                 required
+                                 onChange={handleImageUpload}
                               />
-                              <input className='form-control mt-3' type='file' />
                            </div>
                         </div>
                      </div>

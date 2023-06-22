@@ -5,9 +5,11 @@ import { listUsers } from '../../redux/actions/UserActions'
 const UserComponent = () => {
    const dispatch = useDispatch()
    const { users, loading, error } = useSelector((state) => state.userList)
+
    useEffect(() => {
       dispatch(listUsers())
    }, [dispatch])
+
    return (
       <section className='content-main'>
          <div className='content-header'>
@@ -65,7 +67,7 @@ const UserComponent = () => {
                               <div className='card-header'>
                                  <img
                                     className='img-md img-avatar'
-                                    src='images/favicon.png'
+                                    src={user?.image.length ? user?.image : 'images/13.png'}
                                     alt='User pic'
                                  />
                               </div>

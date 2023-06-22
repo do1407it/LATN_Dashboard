@@ -12,7 +12,13 @@ import {
 
 import { orderListReducer, orderDetailsReducer, orderDelivedReducer } from './reducers/Orders'
 import { userLoginReducer, getUsersReducer } from './reducers/User'
-import { categoryListReducer, categoryDelete } from './reducers/Category'
+import {
+   categoryListReducer,
+   categoryDelete,
+   categoryCreateReducer,
+   categoryEditReducer,
+   categoryUpdateReducer,
+} from './reducers/Category'
 
 const reducer = combineReducers({
    userLogin: userLoginReducer,
@@ -26,6 +32,9 @@ const reducer = combineReducers({
 
    categoryList: categoryListReducer,
    categoryDelete: categoryDelete,
+   categoryCreate: categoryCreateReducer,
+   categoryEdit: categoryEditReducer,
+   categoryUpdate: categoryUpdateReducer,
 
    orderList: orderListReducer,
    orderDetail: orderDetailsReducer,
