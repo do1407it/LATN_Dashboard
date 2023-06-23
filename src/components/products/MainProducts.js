@@ -5,6 +5,8 @@ import { listProducts } from '../../redux/actions/ProductActions'
 import { useSelector, useDispatch } from 'react-redux'
 import Pagination from '../../components/pagination'
 import useQuery from '../../hook/useQuery'
+import { listCategories } from '../../redux/actions/CategoryActions'
+
 import { useHistory } from 'react-router-dom'
 import Message from '../LoadingError/Error'
 import Loading from '../LoadingError/Loading'
@@ -12,12 +14,17 @@ import Loading from '../LoadingError/Loading'
 const MainProducts = () => {
    const dispatch = useDispatch()
    const history = useHistory()
+
    const [search, setSearch] = useState('')
+   const [category, setCategory] = useState('')
+
    const query = useQuery()
    const pageNumber = query.get('pageNumber') || 1
    const keyword = query.get('keyword') || ''
+
    const { loading, error, products } = useSelector((state) => state.productList)
    const { success } = useSelector((state) => state.productDelete)
+   const { categories } = useSelector((state) => state.categoryList)
 
    const handleSearch = (e) => {
       e.preventDefault()
@@ -29,8 +36,9 @@ const MainProducts = () => {
    }
 
    useEffect(() => {
-      dispatch(listProducts(keyword, pageNumber))
-   }, [dispatch, keyword, pageNumber, success])
+      dispatch(listProducts(keyword, pageNumber, category))
+      dispatch(listCategories())
+   }, [dispatch, keyword, pageNumber, success, category])
 
    return (
       <section className='content-main'>
@@ -63,18 +71,19 @@ const MainProducts = () => {
                      </form>
                   </div>
                   <div className='col-lg-2 col-6 col-md-3'>
-                     <select className='form-select'>
-                        <option>All category</option>
-                        <option>Electronics</option>
-                        <option>Clothings</option>
-                        <option>Something else</option>
-                     </select>
-                  </div>
-                  <div className='col-lg-2 col-6 col-md-3'>
-                     <select className='form-select'>
-                        <option>Latest added</option>
-                        <option>Cheap first</option>
-                        <option>Most viewed</option>
+                     <select
+                        className='form-select'
+                        aria-label='Default select example'
+                        value={category}
+                        onChange={(e) => setCategory(e.target.value)}
+                     >
+                        <option value=''>All Category</option>
+                        {categories &&
+                           categories.map((category) => (
+                              <option key={category._id} value={category._id}>
+                                 {category.title}
+                              </option>
+                           ))}
                      </select>
                   </div>
                </div>
