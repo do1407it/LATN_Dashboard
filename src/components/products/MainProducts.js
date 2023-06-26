@@ -55,17 +55,16 @@ const MainProducts = () => {
             <header className='card-header bg-white '>
                <div className='row gx-3 py-3'>
                   <div className='col-lg-4 col-md-6 me-auto '>
-                     {/* code form search */}
                      <form className='d-flex' onSubmit={handleSearch}>
                         <input
                            className='form-control me-2'
                            type='search'
-                           placeholder='Search'
+                           placeholder='Type search'
                            aria-label='Search'
                            onChange={(e) => setSearch(e.target.value)}
                            value={search}
                         />
-                        <button className='btn btn-outline-success' type='submit'>
+                        <button className='btn btn-outline-primary' type='submit'>
                            Search
                         </button>
                      </form>
