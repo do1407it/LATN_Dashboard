@@ -21,12 +21,11 @@ import {
    PRODUCT_UPDATE_REQUEST,
    PRODUCT_UPDATE_SUCCESS,
    PRODUCT_UPDATE_FAILURE,
-   PRODUCT_UPDATE_RESET,
 } from './actionTypes'
 import { logout } from './UserActions'
 
 export const listProducts =
-   (keyword = '', pageNumber = 1) =>
+   (keyword = '', pageNumber = 1, category = '') =>
    async (dispatch) => {
       try {
          dispatch({
@@ -34,7 +33,7 @@ export const listProducts =
          })
 
          const { data } = await axios.get(
-            `/api/products?keyword=${keyword}&pageNumber=${pageNumber}`
+            `/api/products?keyword=${keyword}&pageNumber=${pageNumber}&category=${category}`
          )
 
          dispatch({
@@ -185,7 +184,6 @@ export const editProduct = (id) => async (dispatch) => {
 }
 
 export const updateProduct = (product) => async (dispatch, getState) => {
-
    try {
       dispatch({ type: PRODUCT_UPDATE_REQUEST })
 
