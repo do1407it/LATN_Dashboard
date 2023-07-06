@@ -20,6 +20,14 @@ import {
    categoryUpdateReducer,
 } from './reducers/Category'
 
+import {
+   couponListReducer,
+   couponDelete,
+   couponCreateReducer,
+   couponEditReducer,
+   couponUpdateReducer,
+} from './reducers/Coupon'
+
 const reducer = combineReducers({
    userLogin: userLoginReducer,
    userList: getUsersReducer,
@@ -35,6 +43,12 @@ const reducer = combineReducers({
    categoryCreate: categoryCreateReducer,
    categoryEdit: categoryEditReducer,
    categoryUpdate: categoryUpdateReducer,
+
+   couponList: couponListReducer,
+   couponDelete: couponDelete,
+   couponCreate: couponCreateReducer,
+   couponEdit: couponEditReducer,
+   couponUpdate: couponUpdateReducer,
 
    orderList: orderListReducer,
    orderDetail: orderDetailsReducer,

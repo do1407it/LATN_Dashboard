@@ -529,7 +529,7 @@ a.itemside:hover .title {
 .card-user .card-header {
    position: relative;
    height: 100px;
-   background-color: #c3f19d !important;
+   background-color: #0080ff !important;
    text-align: center;
 }
 .card-user .img-avatar {
@@ -905,4 +905,10 @@ ul.row-sm {
    font-size: 1.2rem;
    line-height: 0.7;
    vertical-align: bottom;
+}
+
+.invalid-date {
+   color: #999;
+   background-color: #f5f5f5;
+   cursor: not-allowed;
 }

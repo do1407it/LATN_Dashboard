@@ -13,6 +13,8 @@ import Login from './screens/LoginScreen'
 import UsersScreen from './screens/UsersScreen'
 import ProductEditScreen from './screens/ProductEditScreen'
 import CategoryEditScreen from './screens/CategoryEditScreen'
+import CouponScreen from './screens/CouponScreen'
+import CouponEditScreen from './screens/CouponEditScreen'
 import NotFound from './screens/NotFound'
 import PrivateRoute from './PrivateRouter'
 import { useSelector, useDispatch } from 'react-redux'
@@ -45,6 +47,9 @@ function App() {
 
                <PrivateRoute path='/orders' component={OrderScreen} />
                <PrivateRoute path='/order/:id' component={OrderDetailScreen} />
+
+               <PrivateRoute path='/coupon/:id/edit' component={CouponEditScreen} />
+               <PrivateRoute path='/coupon' component={CouponScreen} />
 
                <PrivateRoute path='/users' component={UsersScreen} />
                <Route path='/login' component={Login} />
