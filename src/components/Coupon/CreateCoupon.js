@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { createCoupon } from '../../redux/actions/CouponActions'
 import Loading from '../LoadingError/Loading'
 import Message from '../LoadingError/Error'
+import moment from 'moment'
 
 const CreateCoupon = () => {
    const dispatch = useDispatch()
@@ -83,8 +84,8 @@ const CreateCoupon = () => {
                   className='form-control py-3'
                   id='product_name'
                   // format to YYYY-MM-DD
-                  // min={new Date().toISOString().slice(0, 10)}
-                  // max={moment().add(6, 'days').format('YYYY-MM-DD')}
+                  min={new Date().toISOString().slice(0, 10)}
+                  max={moment().add(6, 'days').format('YYYY-MM-DD')}
                   value={expirationDate}
                   onChange={handleDateChange}
                />

@@ -57,8 +57,7 @@ const CategoriesTable = () => {
                            <td>{coupon?._id}</td>
                            <td>{coupon?.code}</td>
                            <td>{coupon?.discount}</td>
-                           <td>{moment(coupon?.expirationDate).format('MMM Do YY')}</td>
-                           {/* <td>{coupon?.expirationDate}</td> */}
+                           <td>{moment(coupon?.expirationDate).format('DD/MM/YYYY')}</td>
                            <td>{coupon?.countInStock}</td>
                            <td>{coupon?.description}</td>
                            <td className='text-end'>
