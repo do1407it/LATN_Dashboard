@@ -8,9 +8,9 @@ import moment from 'moment'
 const CreateCoupon = () => {
    const dispatch = useDispatch()
    const [code, setCode] = useState('')
-   const [discount, setDiscount] = useState(0)
+   const [discount, setDiscount] = useState(10)
    const [expirationDate, setExpirationDate] = useState(new Date().toISOString().slice(0, 10))
-   const [countInStock, setCountInStock] = useState(0)
+   const [countInStock, setCountInStock] = useState(1)
    const [description, setDescription] = useState('')
    const handleDateChange = (e) => {
       const selectedDate = e.target.value
@@ -67,7 +67,7 @@ const CreateCoupon = () => {
                   value={discount}
                   onChange={(e) => {
                      const inputVal = parseInt(e.target.value)
-                     if (inputVal >= 0) {
+                     if (inputVal >= 10) {
                         setDiscount(inputVal)
                      }
                   }}
@@ -102,7 +102,7 @@ const CreateCoupon = () => {
                   value={countInStock}
                   onChange={(e) => {
                      const inputVal = parseInt(e.target.value)
-                     if (inputVal >= 0) {
+                     if (inputVal >= 1) {
                         setCountInStock(inputVal)
                      }
                   }}

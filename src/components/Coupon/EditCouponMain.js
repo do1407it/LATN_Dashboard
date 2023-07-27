@@ -15,7 +15,7 @@ const ToastObjects = {
    autoClose: 2000,
 }
 
-const EditCouponMain = ({ categoryId }) => {
+const EditCateogryMain = ({ categoryId }) => {
    const dispatch = useDispatch()
    const [name, setName] = useState('')
    const [description, setDescription] = useState('')
@@ -58,8 +58,8 @@ const EditCouponMain = ({ categoryId }) => {
          <section className='content-main' style={{ maxWidth: '1200px' }}>
             <form onSubmit={submitHandler}>
                <div className='content-header'>
-                  <Link to='/category' className='btn btn-danger text-white'>
-                     Go to categories
+                  <Link to='/coupon' className='btn btn-danger text-white'>
+                     Go to coupon
                   </Link>
                   <h2 className='content-title'>Update Coupon</h2>
                   <div>
@@ -69,46 +69,91 @@ const EditCouponMain = ({ categoryId }) => {
                   </div>
                </div>
 
-               <div className='row mb-4'>
-                  <div className='col-xl-8 col-lg-8'>
-                     <div className='card mb-4 shadow-sm'>
-                        <div className='card-body'>
-                           {/* {loadingUpdate && <Loading />} */}
-                           {/* {errorUpdate && <Message variant='alert-danger'>{errorUpdate}</Message>} */}
-                           <div className='mb-4'>
-                              <label htmlFor='product_title' className='form-label'>
-                                 Code Coupon
-                              </label>
-                              <input
-                                 type='text'
-                                 placeholder='Type here'
-                                 className='form-control'
-                                 id='product_title'
-                                 value={name}
-                                 onChange={(e) => setName(e.target.value)}
-                                 required
-                              />
-                           </div>
-
-                           <div className='mb-4'>
-                              <label className='form-label'>Description</label>
-                              <textarea
-                                 placeholder='Type here'
-                                 className='form-control'
-                                 rows='7'
-                                 required
-                                 value={description}
-                                 onChange={(e) => setDescription(e.target.value)}
-                              ></textarea>
-                           </div>
-                        </div>
-                     </div>
+               <form>
+                  <div className='mb-4'>
+                     <label htmlFor='product_name' className='form-label'>
+                        Code Coupon
+                     </label>
+                     <input
+                        type='text'
+                        placeholder='Type here'
+                        className='form-control py-3'
+                        id='product_name'
+                        // value={code}
+                        // onChange={(e) => setCode(e.target.value)}
+                     />
                   </div>
-               </div>
+                  <div className='mb-4'>
+                     <label htmlFor='product_name' className='form-label'>
+                        Discount
+                     </label>
+                     <input
+                        type='number'
+                        placeholder='Type here'
+                        className='form-control py-3'
+                        id='product_name'
+                        // value={discount}
+                        // onChange={(e) => {
+                        //    const inputVal = parseInt(e.target.value)
+                        //    if (inputVal >= 0) {
+                        //       setDiscount(inputVal)
+                        //    }
+                        // }}
+                     />
+                  </div>
+                  <div className='mb-4'>
+                     <label htmlFor='product_name' className='form-label'>
+                        Expiration Date
+                     </label>
+                     <input
+                        type='date'
+                        placeholder='Type here'
+                        className='form-control py-3'
+                        id='product_name'
+                        // format to YYYY-MM-DD
+                        // min={new Date().toISOString().slice(0, 10)}
+                        // max={moment().add(6, 'days').format('YYYY-MM-DD')}
+                        // value={expirationDate}
+                        // onChange={handleDateChange}
+                     />
+                  </div>
+                  <div className='mb-4'>
+                     <label htmlFor='product_name' className='form-label'>
+                        Count In Stock
+                     </label>
+                     <input
+                        type='number'
+                        placeholder='Type here'
+                        className='form-control py-3'
+                        id='product_name'
+                        // value={countInStock}
+                        // onChange={(e) => {
+                        //    const inputVal = parseInt(e.target.value)
+                        //    if (inputVal >= 0) {
+                        //       setCountInStock(inputVal)
+                        //    }
+                        // }}
+                     />
+                  </div>
+                  <div className='mb-4'>
+                     <label className='form-label'>Description</label>
+                     <textarea
+                        placeholder='Type here'
+                        className='form-control'
+                        rows='4'
+                        // value={description}
+                        // onChange={(e) => setDescription(e.target.value)}
+                     ></textarea>
+                  </div>
+
+                  <div className='d-grid'>
+                     <button className='btn btn-primary py-3'>Update Coupon</button>
+                  </div>
+               </form>
             </form>
          </section>
       </>
    )
 }
 
-export default EditCouponMain
+export default EditCateogryMain

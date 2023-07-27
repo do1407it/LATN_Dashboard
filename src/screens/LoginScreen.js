@@ -8,22 +8,22 @@ import { toast } from 'react-toastify'
 
 const Login = ({ history }) => {
    window.scrollTo(0, 0)
-   const toastId = useRef(null)
+   // const toastId = useRef(null)
    const [email, setEmail] = useState('')
    const [password, setPassword] = useState('')
    const dispatch = useDispatch()
 
    const userLogin = useSelector((state) => state.userLogin)
    const { error, loading, userInfo } = userLogin
-   const Toastobjects = useMemo(
-      () => ({
-         pauseOnFocusLoss: false,
-         draggable: false,
-         pauseOnHover: false,
-         autoClose: 2000,
-      }),
-      []
-   )
+   // const Toastobjects = useMemo(
+   //    () => ({
+   //       pauseOnFocusLoss: false,
+   //       draggable: false,
+   //       pauseOnHover: false,
+   //       autoClose: 2000,
+   //    }),
+   //    []
+   // )
    useEffect(() => {
       if (userInfo) {
          history.push('/')

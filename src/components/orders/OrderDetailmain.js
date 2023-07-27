@@ -40,13 +40,13 @@ const OrderDetailmain = ({ orderId }) => {
                      <small className='text-white mx-3 '>Order ID: {order?._id}</small>
                   </div>
                   <div className='col-lg-6 col-md-6 ms-auto d-flex justify-content-end align-items-center'>
-                     <select className='form-select d-inline-block' style={{ maxWidth: '200px' }}>
+                     {/* <select className='form-select d-inline-block' style={{ maxWidth: '200px' }}>
                         <option>Change status</option>
                         <option>Awaiting payment</option>
                         <option>Confirmed</option>
                         <option>Shipped</option>
                         <option>Delivered</option>
-                     </select>
+                     </select> */}
                      <Link className='btn btn-success ms-2' to='#'>
                         <i className='fas fa-print'></i>
                      </Link>

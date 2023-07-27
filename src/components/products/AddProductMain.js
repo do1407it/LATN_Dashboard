@@ -115,7 +115,12 @@ const AddProductMain = () => {
                                  placeholder='Type here'
                                  className='form-control'
                                  id='product_price'
-                                 onChange={(e) => setPrice(e.target.value)}
+                                 onChange={(e) => {
+                                    if (e.target.value < 0) {
+                                       toast.error('Price must be greater than 0', ToastObjects)
+                                       setPrice(0)
+                                    } else setPrice(e.target.value)
+                                 }}
                                  value={price}
                                  required
                               />
@@ -150,11 +155,21 @@ const AddProductMain = () => {
                                  placeholder='Type here'
                                  className='form-control'
                                  id='product_price'
-                                 onChange={(e) => setCountInStock(e.target.value)}
+                                 onChange={(e) => {
+                                    if (e.target.value < 0) {
+                                       toast.error(
+                                          'Count In Stock must be greater than 0',
+                                          ToastObjects
+                                       )
+                                       setCountInStock(0)
+                                    } else setCountInStock(e.target.value)
+                                 }}
                                  value={countInStock}
                                  required
                               />
                            </div>
+                           {/* size */}
+
                            <div className='mb-4'>
                               <label className='form-label'>Description</label>
                               <textarea

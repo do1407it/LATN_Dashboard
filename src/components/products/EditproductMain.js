@@ -56,11 +56,11 @@ const EditProductMain = ({ productId }) => {
          }
       }
    }, [dispatch, product, productId, successUpdate])
-   console.log(category)
+
    const submitHandler = (e) => {
       e.preventDefault()
       if (price <= 0) toast.error('Price must be greater than 0', ToastObjects)
-
+      else if (countInStock <= 0) toast.error('Count In Stock must be greater than 0', ToastObjects)
       else
          dispatch(
             updateProduct({

@@ -82,6 +82,7 @@ const UserComponent = () => {
                                        )}
                                     </p>
                                     <p>{user?.email}</p>
+                                    <p>{user?.phone}</p>
                                  </div>
                               </div>
                            </div>

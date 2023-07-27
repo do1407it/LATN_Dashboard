@@ -9,12 +9,14 @@ const CreateCategory = () => {
    const [description, setDescription] = useState('')
 
    const { loading, error, success } = useSelector((state) => state.categoryCreate)
+
    useEffect(() => {
       if (success) {
          setName('')
          setDescription('')
       }
    }, [dispatch, success])
+   
    const handleCreateCategory = (e) => {
       e.preventDefault()
       dispatch(createCategory({ title: name.trim(), description: description.trim() }))

@@ -14,6 +14,7 @@ import UsersScreen from './screens/UsersScreen'
 import ProductEditScreen from './screens/ProductEditScreen'
 import CategoryEditScreen from './screens/CategoryEditScreen'
 import CouponScreen from './screens/CouponScreen'
+import ColorScreen from './screens/ColorScreen'
 import CouponEditScreen from './screens/CouponEditScreen'
 import NotFound from './screens/NotFound'
 import PrivateRoute from './PrivateRouter'
@@ -51,7 +52,11 @@ function App() {
                <PrivateRoute path='/coupon/:id/edit' component={CouponEditScreen} />
                <PrivateRoute path='/coupon' component={CouponScreen} />
 
+               <PrivateRoute path='/color/:id/edit' component={CouponEditScreen} />
+               <PrivateRoute path='/color' component={ColorScreen} />
+
                <PrivateRoute path='/users' component={UsersScreen} />
+
                <Route path='/login' component={Login} />
 
                <Route path='*' component={NotFound} />

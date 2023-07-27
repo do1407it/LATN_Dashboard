@@ -17,9 +17,9 @@ const ToastObjects = {
 
 const EditCateogryMain = ({ categoryId }) => {
    const dispatch = useDispatch()
-   const [name, setName] = useState('')
+   const [title, setTitle] = useState('')
    const [description, setDescription] = useState('')
-
+   
    const {
       loading: loadingEdit,
       error: errorEdit,
@@ -41,27 +41,35 @@ const EditCateogryMain = ({ categoryId }) => {
          if (!category || category._id !== categoryId) {
             dispatch(editCategory(categoryId))
          } else {
-            setName(category.title)
+            setTitle(category.title)
             setDescription(category.description)
          }
+         if (errorUpdate) {
+            toast.error(errorUpdate, ToastObjects)
+            dispatch({ type: 'CATEGORY_UPDATE_RESET' })
+            dispatch(editCategory(categoryId))
+         }
       }
-   }, [dispatch, categoryId, category, successUpdate])
+   }, [dispatch, categoryId, category, successUpdate, errorUpdate])
 
    const submitHandler = (e) => {
       e.preventDefault()
-      dispatch(updateCategory({ _id: categoryId, title: name, description }))
+      dispatch(updateCategory({ _id: categoryId, title: title.trim(), description }))
    }
+
    return (
       <>
          <Toast />
+         {loadingEdit && <Loading />}
+         {errorEdit && <Message variant='danger'>{errorEdit}</Message>}
 
          <section className='content-main' style={{ maxWidth: '1200px' }}>
             <form onSubmit={submitHandler}>
                <div className='content-header'>
-                  <Link to='/coupon' className='btn btn-danger text-white'>
-                     Go to coupon
+                  <Link to='/category' className='btn btn-danger text-white'>
+                     Go to category
                   </Link>
-                  <h2 className='content-title'>Update Coupon</h2>
+                  <h2 className='content-title'>Update Category</h2>
                   <div>
                      <button type='submit' className='btn btn-primary'>
                         Publish now
@@ -72,82 +80,29 @@ const EditCateogryMain = ({ categoryId }) => {
                <form>
                   <div className='mb-4'>
                      <label htmlFor='product_name' className='form-label'>
-                        Code Coupon
+                        Name
                      </label>
                      <input
                         type='text'
                         placeholder='Type here'
                         className='form-control py-3'
                         id='product_name'
-                        // value={code}
-                        // onChange={(e) => setCode(e.target.value)}
+                        value={title}
+                        onChange={(e) => setTitle(e.target.value)}
                      />
                   </div>
                   <div className='mb-4'>
                      <label htmlFor='product_name' className='form-label'>
-                        Discount
+                        Description
                      </label>
                      <input
-                        type='number'
+                        type='text'
                         placeholder='Type here'
                         className='form-control py-3'
                         id='product_name'
-                        // value={discount}
-                        // onChange={(e) => {
-                        //    const inputVal = parseInt(e.target.value)
-                        //    if (inputVal >= 0) {
-                        //       setDiscount(inputVal)
-                        //    }
-                        // }}
+                        value={description ?? ''}
+                        onChange={(e) => setDescription(e.target.value)}
                      />
-                  </div>
-                  <div className='mb-4'>
-                     <label htmlFor='product_name' className='form-label'>
-                        Expiration Date
-                     </label>
-                     <input
-                        type='date'
-                        placeholder='Type here'
-                        className='form-control py-3'
-                        id='product_name'
-                        // format to YYYY-MM-DD
-                        // min={new Date().toISOString().slice(0, 10)}
-                        // max={moment().add(6, 'days').format('YYYY-MM-DD')}
-                        // value={expirationDate}
-                        // onChange={handleDateChange}
-                     />
-                  </div>
-                  <div className='mb-4'>
-                     <label htmlFor='product_name' className='form-label'>
-                        Count In Stock
-                     </label>
-                     <input
-                        type='number'
-                        placeholder='Type here'
-                        className='form-control py-3'
-                        id='product_name'
-                        // value={countInStock}
-                        // onChange={(e) => {
-                        //    const inputVal = parseInt(e.target.value)
-                        //    if (inputVal >= 0) {
-                        //       setCountInStock(inputVal)
-                        //    }
-                        // }}
-                     />
-                  </div>
-                  <div className='mb-4'>
-                     <label className='form-label'>Description</label>
-                     <textarea
-                        placeholder='Type here'
-                        className='form-control'
-                        rows='4'
-                        // value={description}
-                        // onChange={(e) => setDescription(e.target.value)}
-                     ></textarea>
-                  </div>
-
-                  <div className='d-grid'>
-                     <button className='btn btn-primary py-3'>Update Coupon</button>
                   </div>
                </form>
             </form>

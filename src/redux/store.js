@@ -28,6 +28,8 @@ import {
    couponUpdateReducer,
 } from './reducers/Coupon'
 
+import { colorListReducer, colorCreateReducer, colorDeleteReducer } from './reducers/Color'
+
 const reducer = combineReducers({
    userLogin: userLoginReducer,
    userList: getUsersReducer,
@@ -49,6 +51,10 @@ const reducer = combineReducers({
    couponCreate: couponCreateReducer,
    couponEdit: couponEditReducer,
    couponUpdate: couponUpdateReducer,
+
+   colorList: colorListReducer,
+   colorCreate: colorCreateReducer,
+   colorDelete: colorDeleteReducer,
 
    orderList: orderListReducer,
    orderDetail: orderDetailsReducer,

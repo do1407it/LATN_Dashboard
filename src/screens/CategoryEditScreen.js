@@ -1,10 +1,10 @@
 import React from 'react'
 import Sidebar from '../components/sidebar'
 import Header from '../components/Header'
-import EditCouponMain from '../components/Coupon/EditCouponMain'
+import EditcategoryMain from '../components/Categories/EditcategoryMain'
 
-const CouponEditScreen = ({ match }) => {
-   const couponId = match.params.id
+const CategoryEditScreen = ({ match }) => {
+   const categoryId = match.params.id
 
    return (
       <>
@@ -12,9 +12,9 @@ const CouponEditScreen = ({ match }) => {
          <main className='main-wrap'>
             <Header />
 
-            <EditCouponMain couponId={couponId} />
+            <EditcategoryMain categoryId={categoryId} />
          </main>
       </>
    )
 }
-export default CouponEditScreen
+export default CategoryEditScreen
